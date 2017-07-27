@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;}
+			#box{
+				height: 200px;
+				width:200px;
+				background-color:aquamarine;
+				position:relative;
+				left:-200px;
+				top:0;
+			}
+			#share{
+				width:20px;
+				height:50px;
+				background-color: red;
+				position:absolute;
+				left:200px;
+				top:70px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload=function(){
+				
+				var oDiv=document.getElementById('box');
+				oDiv.onmouseover=function(){
+					startMove(0);//0为left的值到0时停止运动
+				}
+				
+				oDiv.onmouseout=function(){
+					startMove(-200);//-200为left的值到-200时停止运动
+				}
+				//封装一个运动函数
+				var time=null;
+				function startMove(iTarget){//iTarget为目标值到哪里停
+					clearInterval(time);  //防止多次触发事件所以每次触发事件是先清除上次事件
+					var oDiv=document.getElementById('box');
+					time=setInterval(function(){
+						var speed=(iTarget-oDiv.offsetLeft)/20; //speed为速度值,20为自定义的一个速度系数
+					    speed=speed>0?Math.ceil(speed):Math.floor(speed);//Math.ceil为向上取整，Math.floor向下取整
+						//设置元素的left值实现运动
+						if(oDiv.offsetLeft==iTarget){
+						   clearInterval(time);
+						}else{
+						   oDiv.style.left=oDiv.offsetLeft+speed+'px';
+						}
+					},30)
+				}
+		
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<span id="share">
+				分享
+			</span>
+		</div>
+	</body>
+</html>

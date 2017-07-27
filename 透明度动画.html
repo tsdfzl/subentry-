@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				height:200px;
+				width:200px;
+				background-color:#fda346;
+				border:1px solid #000;
+				filter:alpha(opacity:30);
+				opacity: 0.3;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			 
+		</div>
+	</body>
+	<script type="text/javascript">
+	  window.onload=function(){
+		var box=document.getElementById('box');
+		box.onmouseover=function(){
+			startMove(100);
+		}
+		box.onmouseout=function(){
+			startMove(30);
+		}
+		
+		var timer=null;//声明一个变量储存定时器
+		var alpha=30;//设置一个变量等于透明度的默认值
+		function startMove(iTarget){//iTarget为目标值
+			var box=document.getElementById('box');
+			clearInterval(timer);//清除定时器
+			timer=setInterval(function(){//设置一个定时器
+				var speed=0;//设置一个变量储存递增递减的步数
+				if(alpha>iTarget){//但起始值大于目标值时
+					speed=-10;
+				}else{
+					speed=10;
+				}
+				if(alpha==iTarget){//但起始值等于目标值时
+					clearInterval(timer);//清楚定时器
+				}else{
+					alpha+=speed;
+					box.style.filter='alpha(opactiy:'+alpha+')';//基于IE的透明度设置
+					box.style.opacity=alpha/100;//基于火狐和其它的透明度设置
+				}
+				
+			},30)
+		}
+
+	  }
+
+	</script>
+</html>
