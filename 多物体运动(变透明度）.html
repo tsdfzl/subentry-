@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				height:100px;
+				width:100px;
+				background-color:#fda346;
+				border:1px solid #000;
+				filter:alpha(opacity:30);
+				opacity: 0.3;
+				margin:10px;
+				float:left;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</body>
+	<script type="text/javascript">
+	  window.onload=function(){
+		var oDiv=document.getElementsByTagName('div');
+		for(var i=0; i<oDiv.length; i++){
+			oDiv[i].alpha=30;//给每一个设置一个自定义值，相当于设置透明度的默认值
+			oDiv[i].onmouseover=function(){
+			  startMove(this,100);
+			}
+			oDiv[i].onmouseout=function(){
+			  startMove(this,30);
+           }
+		}
+		
+		function startMove(obj,iTarget){//obj为this,iTarget为目标值
+			clearInterval(obj.timer);//清除定时器
+			obj.timer=setInterval(function(){//设置一个定时器
+				var speed=0;//设置一个变量储存递增递减的步数
+				if(obj.alpha>iTarget){//当起始值大于目标值时
+					speed=-10;
+				}else{
+					speed=10;
+				}
+				if(obj.alpha==iTarget){//当起始值等于目标值时
+					clearInterval(obj.timer);//清楚定时器
+				}else{
+					obj.alpha+=speed;
+					obj.style.filter='alpha(opactiy:'+obj.alpha+')';//基于IE的透明度设置
+					obj.style.opacity=obj.alpha/100;//基于火狐和其它的透明度设置
+				}
+				
+			},30)
+		}
+
+	  }
+
+	</script>
+</html>
