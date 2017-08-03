@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#div1{
+				width:200px;
+				height:200px;
+				background:#f00;
+				border:1px solid #000;
+				font-style:12px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload=function(){
+				startMove();
+			}
+			function startMove(){
+				setInterval(function(){
+					var oDiv=document.getElementById('div1');	
+					oDiv.style.width=parseInt(getStyle(oDiv,'width'))-1+'px';//parseInt()函数可解析一个字符串，并返回一个整数。
+					oDiv.style.fontSize=parseInt(getStyle(oDiv,'fontSize'))+1+'px';
+                },30)
+			}
+			function getStyle(obj,attr){//获取行间样式的函数，obj为对象，attr为属性
+				if(obj.currentStyle){
+					return obj.currentStyle[attr];//currentStyle针对IE浏览器
+				}else{
+					return getComputedStyle(obj,false)[attr];//getComputedStyle针对firefox浏览器
+				}
+			}
+			
+		</script>
+	</head>
+	<body>
+		<div id="div1">
+			变大变大
+		</div>
+	</body>
+</html>
